@@ -33,9 +33,9 @@ gotoTofu(Q, X, Y) :-
 	q_pickup(Q, 'tofu'). %pickup the tofu and we're done
 
 $traverses the world and goes to the target location to drop the tofu
-Step 1: Get our location in the world
-Step 2: Determine where we have to go along the x and y axis to get to the target
-Step 3: Drop the tofu
+%Step 1: Get our location in the world
+%Step 2: Determine where we have to go along the x and y axis to get to the target
+%Step 3: Drop the tofu
 gotoTarget(Q, X, Y) :- 
 	
 	
