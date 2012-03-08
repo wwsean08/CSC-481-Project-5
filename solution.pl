@@ -26,23 +26,39 @@ findTofu(Q, X, Y) :-
 %traverses the world in order to get to the location of the tofu and pick it up.
 %Step 1: Get our location in the world -partially implemented (maybe?)
 %Step 2: Determine where we have to go along the X and Y axis to get to the tofu
+	%To do this go one axis, turn 90 or -90 and then go the other axis to locate the quagent at the tofu
 %Step 3: Pickup Tofu - Done, that was easy
 gotoTofu(Q, X, Y) :- 
 	q_where(Q),					%execute the where event to find out our location
 	q_events(Q,WhereEvent),		%not quite sure if this will work but will try it anyways to get the results of the where
 	parseWhereEvent(WhereEvent),%parses the event returned by q_events
-	
+	%Determine which way we are looking here that way we know where we need to turn
+	DistanceX is abs(X - targetX),	%incase we change the target
+	q_turn(Q, Turn),
+	q_walk(Q, DistanceX),
+	%Determine which way we are looking here that way we know where we need to turn
+	DistanceY is abs(Y - targetY),	%incase we change the target
+	q_turn(Q, Turn),
+	q_walk(Q, DistanceY),
 	q_pickup(Q, 'tofu'). 		%pickup the tofu and we're done
 
 %traverses the world and goes to the target location to drop the tofu
 %Step 1: Get our location in the world -partially implemented (maybe?)	
 %Step 2: Determine where we have to go along the x and y axis to get to the target
+	%To do this go one axis, turn 90 or -90 and then go the other axis to locate the quagent at 0,0
 %Step 3: Drop the tofu - Done, that was easy
 gotoTarget(Q, X, Y) :- 
 	q_where(Q),					%execute the where event to find out our location
 	q_events(Q,WhereEvent),		%not quite sure if this will work but will try it anyways to get the results of the where
-	parseWhereEvent(WhereEvent),%parses the event returned by q_events
-	
+	parseWhereEvent(WhereEvent, X, Y),%parses the event returned by q_events
+	%Determine which way we are looking here that way we know where we need to turn
+	DistanceX is abs(X - targetX),	%incase we change the target
+	q_turn(Q, Turn),
+	q_walk(Q, DistanceX),
+	%Determine which way we are looking here that way we know where we need to turn
+	DistanceY is abs(Y - targetY),	%incase we change the target
+	q_turn(Q, Turn),
+	q_walk(Q, DistanceY),
 	q_drop(Q, 'tofu'). 			%drop the tofu and we are done.
 
 %parse the radius event in order to find the tofu
@@ -64,9 +80,9 @@ parseWalkEvent([H|T]) :-
 	parse_walk_events(T).
 	
 %parse the where event in order to get the quagents location
-parseWhereEvent([]) :- nl.
+parseWhereEvent([], X, Y) :- nl.
 
-parseWhereEvent([H|T]) :-
+parseWhereEvent([H|T], X, Y) :-
 	tokenize_atom(H,TokenList),
 	handle_walk_event(TokenList),
 	write(H), nl,
