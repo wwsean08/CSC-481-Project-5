@@ -1,6 +1,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % quagent.pro - A simple interface library to the quagent QII mod.
-% Version 3.0
+% Version 3.0 
 % written by Lutz Hamel, 2006.
 %
 % NOTE: this library has only been tested under SWI-Prolog 5.6.2
