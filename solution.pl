@@ -12,7 +12,8 @@ run:-
 	q_cameraon(Q),
 	findTofu(Q, X, Y).
 	%gotoTofu(Q, X, Y),
-	%gotoTarget(Q, targetX, targetY).
+	%gotoTarget(Q, targetX, targetY),
+	%q_close(Q).
 
 %Find tofu uses the radius command to locate the tofu within the room.
 %Step 1: Find the tofu using the radius command and parsing the event for the x and y values.
@@ -20,7 +21,7 @@ run:-
 findTofu(Q, X, Y) :- 
 	q_radius(Q, 1000),
 	q_events(Q, RadiusEvents),
-	printEvents(RadiusEvents).
+	parseRadiusEvent(RadiusEvents).
 
 %traverses the world in order to get to the location of the tofu and pick it up.
 %Step 1: Get our location in the world
